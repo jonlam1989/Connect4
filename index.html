@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="connect4.css">
+    <title>Connect 4</title>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="header">CONNECT 4</div>
+
+        <div class="players-container">
+            <div class="player-1">
+                <p>Player 1</p>
+                <iframe src="https://giphy.com/embed/xT77XMx5VvvTfMsTrq" width="350" height="350" frameBorder="0"
+                    class="giphy-embed" allowFullScreen></iframe>
+            </div>
+
+            <div>
+                <p>VS</p>
+                <button hidden>Start game!</button>
+            </div>
+
+            <div class="player-2">
+                <p>Player 2</p>
+                <iframe src="https://giphy.com/embed/xT77XMx5VvvTfMsTrq" width="350" height="350" frameBorder="0"
+                    class="giphy-embed" allowFullScreen></iframe>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <table id="board"></table>
+        </div>
+    </div>
+
+    <script src="connect4.js"></script>
+</body>
+
+</html>
