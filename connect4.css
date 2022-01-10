@@ -6,6 +6,8 @@ body {
 	font-family: 'Press Start 2P', cursive;
 }
 
+/* ---------------------------------------------------------- */
+
 .main-container {
 	width: 100vh;
 	margin: 2em auto;
@@ -14,6 +16,34 @@ body {
 	align-items: center;
 	gap: 4em;
 }
+
+/* ---------------------------------------------------------- */
+
+.header,
+.middle-container {
+	font-size: 2em;
+	letter-spacing: 16px;
+	text-align: center;
+}
+
+.middle-container button {
+	font-family: 'Press Start 2P', cursive;
+	font-size: 0.75em;
+	letter-spacing: 5px;
+	margin-top: 2em;
+	padding: 0.75em 1em;
+	border: none;
+	border-radius: 30px;
+	box-shadow: 0 0 8px rgb(190, 182, 182);
+	transition: 0.5s;
+}
+
+.middle-container button:hover {
+	cursor: pointer;
+	box-shadow: 0 0 10px rgb(63, 61, 61);
+}
+
+/* ---------------------------------------------------------- */
 
 .players-container {
 	display: flex;
@@ -25,7 +55,41 @@ body {
 .player-2 {
 	display: flex;
 	flex-direction: column;
-	border: 2px solid black;
+	text-align: center;
 	border-radius: 10px;
-	padding-bottom: 1em;
+	box-shadow: 0 0 8px rgb(190, 182, 182);
+	transition: 0.5s;
 }
+
+.player-1:hover,
+.player-2:hover {
+	box-shadow: 0 0 16px rgb(63, 61, 61);
+}
+
+.player-1 p,
+.player-2 p {
+	letter-spacing: 8px;
+	margin-bottom: 0.5em;
+}
+
+.player1-color,
+.player2-color {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	padding: 0.25em 0;
+}
+
+.player-1 input,
+.player-2 input {
+	width: 3em;
+	height: 3em;
+	border: none;
+}
+
+.player-1 input:hover,
+.player-2 input:hover {
+	cursor: pointer;
+}
+
+/* ---------------------------------------------------------- */
