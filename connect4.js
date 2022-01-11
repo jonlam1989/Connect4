@@ -20,21 +20,16 @@ class Game {
         const p1_colorInput = document.querySelector('#player1-chosenColor')
         const p2_colorInput = document.querySelector('#player2-chosenColor')
 
-        let p1_colorHexValue
-        let p2_colorHexValue
-
         //p1+p2 containers: added animation
         p1_colorInput.addEventListener('input', (e)=>{
-            p1_colorHexValue = e.target.value
-            p1_text.style.color = p1_colorHexValue
+            p1_text.style.color = e.target.value
             p1_container.style.backgroundColor = 'rgb(43, 40, 40)'
-            p1_container.style.boxShadow = `0 0 20px ${p1_colorHexValue}`
+            p1_container.style.boxShadow = `0 0 20px ${e.target.value}`
         })
         p2_colorInput.addEventListener('input', (e)=>{
-            p2_colorHexValue = e.target.value
-            p2_text.style.color = p2_colorHexValue
+            p2_text.style.color = e.target.value
             p2_container.style.backgroundColor = 'rgb(43, 40, 40)'
-            p2_container.style.boxShadow = `0 0 20px ${p2_colorHexValue}`
+            p2_container.style.boxShadow = `0 0 20px ${e.target.value}`
         })
 
         //p1+p2 inputs: added animation
@@ -61,7 +56,7 @@ class Game {
             startGame.style.boxShadow = '3px 3px 0px black'
             startGame.style.transform = 'translate(-3px, -3px)'
         })
-        startGame.addEventListener('click', this.startGame)
+        startGame.addEventListener('click', this.startGame.bind(this))
     }
     
     startGame() { 
@@ -69,7 +64,6 @@ class Game {
         this.p2 = new Player(document.querySelector('#player2-chosenColor').value, 2)
 
         if (this.p1.color === this.p2.color) alert('Please select different colors')
-        
         console.log('game started')
     }
 }

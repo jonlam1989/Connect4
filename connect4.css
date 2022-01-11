@@ -98,3 +98,51 @@ body {
 }
 
 /* ---------------------------------------------------------- */
+
+@media (max-width: 1200px) {
+	.main-container {
+		gap: 6em;
+	}
+	.players-container {
+		gap: 4em;
+	}
+	.img {
+		width: 300px;
+		height: 300px;
+	}
+}
+
+@media (max-width: 975px) {
+	.middle-container button {
+		font-size: 0.5em;
+	}
+	.players-container {
+		gap: 2em;
+	}
+	.player-1 input,
+	.player-2 input {
+		width: 2.5em;
+		height: 2.5em;
+	}
+}
+
+@media (max-width: 850px) {
+	.main-container {
+		width: 100%;
+		gap: 4em;
+	}
+	.middle-container p {
+		margin-top: 0;
+	}
+	.middle-container button {
+		font-size: 0.75em;
+	}
+	.players-container {
+		flex-direction: column;
+		gap: 2em;
+	}
+	.img {
+		width: 350px;
+		height: 350px;
+	}
+}
