@@ -87,19 +87,22 @@ class Game {
         //create top row for players to drop in their pieces
         let topRow = document.createElement('tr')
         
-        for (let i = 0; i < this.width; i++) {
+        for (let i = 1; i <= this.width; i++) {
             let cell = document.createElement('td')
+            cell.setAttribute('id', i)
             topRow.append(cell)
         }
         
         this.htmlBoard.append(topRow)
 
         //create the rest of the rows
-        for (let i = 0; i < this.height; i++) {
+        for (let i = 1; i <= this.height; i++) {
             let row = document.createElement('tr')
 
-            for (let j = 0; j < this.width; j++) {
+            for (let j = 1; j <= this.width; j++) {
+                let coordinates = `${i}, ${j}`
                 let cell = document.createElement('td')
+                cell.setAttribute('id', coordinates)
                 row.append(cell)
             }
 
