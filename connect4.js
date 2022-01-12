@@ -11,6 +11,8 @@ class Game {
         this.width = width
         this.htmlBoard = document.querySelector('#board')
         this.board = []
+        this.currPlayer = undefined
+        this.handleClick = this.handleClick.bind(this)
         this.preGame()
     }
 
@@ -67,10 +69,15 @@ class Game {
         this.p1 = new Player(document.querySelector('#player1-chosenColor').value, 1)
         this.p2 = new Player(document.querySelector('#player2-chosenColor').value, 2)
 
-        if (this.p1.color === this.p2.color) {
-            alert('Please select different colors')
+        if (this.p1.color === this.p2.color)  {
+            alert('Please select a different color from your opponent')
             return
-        } 
+        } else if (this.p1.color === '#ffffff' || this.p2.color === '#ffffff') {
+            alert('Please select a color that is not white')
+            return
+        } else {
+            this.currPlayer = this.p1
+        }
         
         //clear pre-game menu
         let preGameMenu = document.querySelector('.players-container')
@@ -81,6 +88,9 @@ class Game {
 
         //create in-game memory
         this.makeBoard()
+
+        //show player's turn via color
+        this.hover()
     }
 
     makeHTMLBoard() {
@@ -90,9 +100,10 @@ class Game {
         for (let i = 1; i <= this.width; i++) {
             let cell = document.createElement('td')
             cell.setAttribute('id', i)
+            cell.addEventListener('click', this.handleClick)
             topRow.append(cell)
         }
-        
+
         this.htmlBoard.append(topRow)
 
         //create the rest of the rows
@@ -115,6 +126,21 @@ class Game {
         for (let i = 0; i < this.height; i++) {
             this.board.push(Array.from({length: this.width}))
         }
+    }
+
+    hover() {
+        let topRowCells = Array.from(document.querySelectorAll('#board tr:first-child td'))
+        for (let cell of topRowCells) {
+            cell.style.cursor = 'pointer'
+            cell.style.border = `1px dashed ${this.currPlayer.color}`
+            cell.addEventListener('mouseover', ()=>{cell.style.border = `1px dashed white`})
+            cell.addEventListener('mouseout', ()=>{cell.style.border = `1px dashed ${this.currPlayer.color}`})
+        }
+    }
+
+    handleClick() {
+        this.currPlayer = this.currPlayer !== this.p1 ? this.p1 : this.p2
+        this.hover()
     }
 }
 
