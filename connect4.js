@@ -97,7 +97,7 @@ class Game {
         //create top row for players to drop in their pieces
         let topRow = document.createElement('tr')
         
-        for (let i = 1; i <= this.width; i++) {
+        for (let i = 0; i < this.width; i++) {
             let cell = document.createElement('td')
             cell.setAttribute('id', i)
             cell.addEventListener('click', this.handleClick)
@@ -107,10 +107,10 @@ class Game {
         this.htmlBoard.append(topRow)
 
         //create the rest of the rows
-        for (let i = 1; i <= this.height; i++) {
+        for (let i = 0; i < this.height; i++) {
             let row = document.createElement('tr')
 
-            for (let j = 1; j <= this.width; j++) {
+            for (let j = 0; j < this.width; j++) {
                 let coordinates = `${i}, ${j}`
                 let cell = document.createElement('td')
                 cell.setAttribute('id', coordinates)
@@ -129,19 +129,26 @@ class Game {
     }
 
     hover() {
+        //create hover effect to show whose turn it is
         let topRowCells = Array.from(document.querySelectorAll('#board tr:first-child td'))
         for (let cell of topRowCells) {
             cell.style.cursor = 'pointer'
-            cell.style.border = `1px dashed ${this.currPlayer.color}`
-            cell.addEventListener('mouseover', ()=>{cell.style.border = `1px dashed white`})
-            cell.addEventListener('mouseout', ()=>{cell.style.border = `1px dashed ${this.currPlayer.color}`})
+            cell.style.border = `2px dashed ${this.currPlayer.color}`
+            cell.style.filter = 'brightness(2)'
+            cell.addEventListener('mouseover', ()=>{
+                cell.style.border = `2px dashed white`
+                cell.style.filter = 'brightness(2)'
+            })
+            cell.addEventListener('mouseout', ()=>{
+                cell.style.border = `2px dashed ${this.currPlayer.color}`
+            })
         }
     }
 
-    handleClick() {
+    handleClick(e) {
         this.currPlayer = this.currPlayer !== this.p1 ? this.p1 : this.p2
         this.hover()
     }
 }
 
-new Game(7, 8)
+new Game(7, 8)  

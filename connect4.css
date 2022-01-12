@@ -106,16 +106,26 @@ body {
 	margin-bottom: 2em;
 }
 
+#board {
+	box-shadow: 0 0 8px white;
+}
+
 #board tr:first-child td {
 	width: 50px;
 	height: 50px;
-	border: 1px dashed white;
+	border: 2px dashed white;
 }
 
 #board tr td {
 	width: 50px;
 	height: 50px;
-	border: 1px solid white;
+	border: 2px solid white;
+}
+
+.gamePiece {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
 }
 
 /* ---------------------------------------------------------- */
