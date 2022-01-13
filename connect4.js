@@ -69,6 +69,7 @@ class Game {
         this.p1 = new Player(document.querySelector('#player1-chosenColor').value, 1)
         this.p2 = new Player(document.querySelector('#player2-chosenColor').value, 2)
 
+        //check for edge cases
         if (this.p1.color === this.p2.color)  {
             alert('Please select a different color from your opponent')
             return
@@ -131,6 +132,7 @@ class Game {
     hover() {
         //create hover effect to show whose turn it is
         let topRowCells = Array.from(document.querySelectorAll('#board tr:first-child td'))
+
         for (let cell of topRowCells) {
             cell.style.cursor = 'pointer'
             cell.style.border = `2px dashed ${this.currPlayer.color}`
@@ -146,9 +148,38 @@ class Game {
     }
 
     handleClick(e) {
+        //handleClick will turn off once all empty spots are filled
+        let col = Number(e.target.id)
+        let row = this.findEmptySpot(col)
+        if (row === null) return
+
+        //append game piece to htmlBoard and in-game memory board
+        this.appendGamePiece(row, col)
+
+        //change player
         this.currPlayer = this.currPlayer !== this.p1 ? this.p1 : this.p2
         this.hover()
     }
+
+    findEmptySpot(col) {
+        for (let row = this.height - 1; row >= 0; row--) {
+            if (!this.board[row][col]) {
+                return row
+            } 
+        }
+        return null
+    }
+
+    appendGamePiece(row, col) {
+        let gamePiece = document.createElement('div')
+        gamePiece.classList.add('gamePiece')
+        gamePiece.style.backgroundColor = this.currPlayer.color
+
+       let foundCell = document.getElementById(`${row}, ${col}`)
+       foundCell.append(gamePiece)
+        
+        this.board[row][col] = this.currPlayer.num
+    }
 }
 
-new Game(7, 8)  
+new Game(7, 8)
