@@ -172,13 +172,18 @@ class Game {
 
     appendGamePiece(row, col) {
         let gamePiece = document.createElement('div')
-        gamePiece.classList.add('gamePiece')
         gamePiece.style.backgroundColor = this.currPlayer.color
-
+        gamePiece.classList.add('gamePiece')
+        gamePiece.classList.add('animateGamePiece')
+        
        let foundCell = document.getElementById(`${row}, ${col}`)
        foundCell.append(gamePiece)
         
         this.board[row][col] = this.currPlayer.num
+    }
+
+    animateGamePiece() {
+        console.log('animated game piece')
     }
 }
 
