@@ -13,6 +13,7 @@ class Game {
         this.board = []
         this.currPlayer = undefined
         this.handleClick = this.handleClick.bind(this)
+        this.numColumnClicks = {}
         this.preGame()
     }
 
@@ -153,8 +154,14 @@ class Game {
         let row = this.findEmptySpot(col)
         if (row === null) return
 
-        //append game piece to htmlBoard and in-game memory board
-        this.appendGamePiece(row, col)
+        //store number of clicks that occurred at each column 
+        this.trackEachClick(col)
+        //find the current number of clicks at the current column
+        const currColumnClicks = this.numColumnClicks[col]
+
+        //append game piece to htmlBoard and in-game memory board 
+        this.appendGamePiece(row, col, currColumnClicks)
+        this.animateGamePiece(currColumnClicks)
 
         //change player
         this.currPlayer = this.currPlayer !== this.p1 ? this.p1 : this.p2
@@ -170,20 +177,36 @@ class Game {
         return null
     }
 
-    appendGamePiece(row, col) {
+    trackEachClick(col) {
+        if (this.numColumnClicks[col]) {
+            this.numColumnClicks[col]++
+        } else {
+            this.numColumnClicks[col] = 1 
+        }
+    }
+
+    appendGamePiece(row, col, num) {
         let gamePiece = document.createElement('div')
         gamePiece.style.backgroundColor = this.currPlayer.color
         gamePiece.classList.add('gamePiece')
-        gamePiece.classList.add('animateGamePiece')
-        
-       let foundCell = document.getElementById(`${row}, ${col}`)
-       foundCell.append(gamePiece)
+        gamePiece.style.animation = `slide${num} 1s ease-in-out`
+
+        let foundCell = document.getElementById(`${row}, ${col}`)
+        foundCell.append(gamePiece)
         
         this.board[row][col] = this.currPlayer.num
     }
 
-    animateGamePiece() {
-        console.log('animated game piece')
+    animateGamePiece(num) {
+        const styleSheet = document.createElement('style')
+        styleSheet.innerText = 
+            `@keyframes slide${num} {
+                from {
+                    bottom: ${((this.height + 1) * 56) - ((num - 1) * 56)}px;
+                }
+            }`
+
+        document.head.append(styleSheet)
     }
 }
 
