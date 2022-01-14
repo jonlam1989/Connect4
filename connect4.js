@@ -71,6 +71,10 @@ class Game {
         this.p2 = new Player(document.querySelector('#player2-chosenColor').value, 2)
 
         //check for edge cases
+        if(this.height < 6 || this.width < 7) {
+            alert('Please create a bigger board')
+            return
+        }
         if (this.p1.color === this.p2.color)  {
             alert('Please select a different color from your opponent')
             return
@@ -163,6 +167,9 @@ class Game {
         this.appendGamePiece(row, col, currColumnClicks)
         this.animateGamePiece(currColumnClicks)
 
+        //check for a win or a tie
+        this.gameOver()
+
         //change player
         this.currPlayer = this.currPlayer !== this.p1 ? this.p1 : this.p2
         this.hover()
@@ -207,6 +214,71 @@ class Game {
             }`
 
         document.head.append(styleSheet)
+    }
+
+    gameOver() {
+        // https://stackoverflow.com/questions/15457796/four-in-a-row-logic/15457826#15457826
+        let winner = null;
+        let b = this.board
+
+        //check horizontal
+        for (let row = 0; row < this.height; row++) {
+            for (let col = 0; col <= this.width - 4; col++) {
+                if (
+                    b[row][col] !== undefined
+                    && b[row][col] === b[row][col+1]
+                    && b[row][col] === b[row][col+2]
+                    && b[row][col] === b[row][col+3]
+                ) {
+                    winner = b[row][col]
+                }
+            }
+        }
+        //check vertical
+        for (let row = 0; row <= this.height - 4; row++) {
+            for (let col = 0; col < this.width; col++) {
+                if (
+                    b[row][col] !== undefined
+                    && b[row][col] === b[row+1][col]
+                    && b[row][col] === b[row+2][col]
+                    && b[row][col] === b[row+3][col]
+                ) {
+                    winner = b[row][col]
+                }
+            }
+        }
+        //check diagonal (up+right)
+        for (let row = this.height - 4; row < this.height; row++) {
+            for (let col = 0; col <= this.width - 4; col++) {
+                if (
+                    b[row][col] !== undefined
+                    && b[row][col] === b[row-1][col+1]
+                    && b[row][col] === b[row-2][col+2]
+                    && b[row][col] === b[row-3][col+3]
+                ) {
+                    winner = b[row][col]
+                }
+            }
+        }
+        //check diagonal (down+right)
+        for (let row = 0; row <= this.height - 4; row++) {
+            for (let col = 0; col <= this.width - 4; col++) {
+                if (
+                    b[row][col] !== undefined
+                    && b[row][col] === b[row+1][col+1]
+                    && b[row][col] === b[row+2][col+2]
+                    && b[row][col] === b[row+3][col+3]
+                ) {
+                    winner = b[row][col]
+                }
+            }
+        }
+
+        console.log(winner)
+        if(winner) {alert(`Player ${winner} won!`)}
+
+        let isGameTied = this.board.every(row=>row.every(cell=>cell))
+        if (isGameTied) alert('Tied game!')
     }
 }
 

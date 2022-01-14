@@ -131,16 +131,6 @@ body {
 	position: absolute;
 	bottom: 3px;
 }
-/* 
-.animateGamePiece {
-	animation: slide 1s ease-in-out;
-} */
-
-/* @keyframes slide {
-	from {
-		bottom: 448px;
-	}
-} */
 
 /* ---------------------------------------------------------- */
 
