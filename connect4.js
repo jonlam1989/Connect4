@@ -65,19 +65,24 @@ class Game {
         })
     }
     
-    startGame() { 
+    startGame(e) { 
+        e.stopImmediatePropagation();
+        
         //create p1 + p2 instances
         this.p1 = new Player(document.querySelector('#player1-chosenColor').value, 1)
         this.p2 = new Player(document.querySelector('#player2-chosenColor').value, 2)
 
         //check for edge cases
         if (this.height < 6 || this.width < 7) {
+            e.stopImmediatePropagation();
             alert('Please create a bigger board')
             return
         } else if (this.p1.color === this.p2.color)  {
+            e.stopImmediatePropagation();
             alert('Please select a different color from your opponent')
             return
         } else if (this.p1.color === '#ffffff' || this.p2.color === '#ffffff') {
+            e.stopImmediatePropagation();
             alert('Please select a color that is not white')
             return
         } else {
