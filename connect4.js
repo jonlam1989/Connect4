@@ -61,8 +61,8 @@ class Game {
         startGame.addEventListener('mouseup', ()=>{
             startGame.style.boxShadow = '3px 3px 0px black'
             startGame.style.transform = 'translate(-3px, -3px)'
+            startGame.addEventListener('click', this.startGame.bind(this))
         })
-        startGame.addEventListener('click', this.startGame.bind(this))
     }
     
     startGame() { 
@@ -71,11 +71,10 @@ class Game {
         this.p2 = new Player(document.querySelector('#player2-chosenColor').value, 2)
 
         //check for edge cases
-        if(this.height < 6 || this.width < 7) {
+        if (this.height < 6 || this.width < 7) {
             alert('Please create a bigger board')
             return
-        }
-        if (this.p1.color === this.p2.color)  {
+        } else if (this.p1.color === this.p2.color)  {
             alert('Please select a different color from your opponent')
             return
         } else if (this.p1.color === '#ffffff' || this.p2.color === '#ffffff') {
@@ -168,7 +167,7 @@ class Game {
         this.animateGamePiece(currColumnClicks)
 
         //check for a win or a tie
-        this.gameOver()
+        this.gameOver(row, col)
 
         //change player
         this.currPlayer = this.currPlayer !== this.p1 ? this.p1 : this.p2
@@ -216,9 +215,9 @@ class Game {
         document.head.append(styleSheet)
     }
 
-    gameOver() {
+    gameOver(ROW, COL) {
         // https://stackoverflow.com/questions/15457796/four-in-a-row-logic/15457826#15457826
-        let winner = null;
+        let winner;
         let b = this.board
 
         //check horizontal
@@ -274,11 +273,28 @@ class Game {
             }
         }
 
-        console.log(winner)
-        if(winner) {alert(`Player ${winner} won!`)}
+        if(winner) {
+            let winningGamePiece = document.getElementById(`${ROW}, ${COL}`).firstChild
+            winningGamePiece.addEventListener('animationend', ()=> this.gameOverMsg(`Player ${winner} won!`))
+        }
 
         let isGameTied = this.board.every(row=>row.every(cell=>cell))
-        if (isGameTied) alert('Tied game!')
+
+        if (isGameTied) {
+            winningGamePiece.addEventListener('animationend', ()=> this.gameOverMsg('Tied Game!'))
+        }
+    }
+
+    gameOverMsg(msg) {
+        let gameContainer = document.querySelector('.game-container')
+        let gameOverContainer = document.querySelector('.gameOver-container')
+        let message = document.querySelector('.gameOver-container h1')
+        
+        gameContainer.style.display = 'none'
+
+        gameOverContainer.style.display = 'block'
+        gameOverContainer.classList.add('gameOver')
+        message.innerText = msg
     }
 }
 
