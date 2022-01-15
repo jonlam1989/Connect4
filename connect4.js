@@ -140,13 +140,14 @@ class Game {
         for (let cell of topRowCells) {
             cell.style.cursor = 'pointer'
             cell.style.border = `2px dashed ${this.currPlayer.color}`
-            cell.style.filter = 'brightness(2)'
+            cell.style.filter = 'brightness(0.75)'
             cell.addEventListener('mouseover', ()=>{
                 cell.style.border = `2px dashed white`
                 cell.style.filter = 'brightness(2)'
             })
             cell.addEventListener('mouseout', ()=>{
                 cell.style.border = `2px dashed ${this.currPlayer.color}`
+                cell.style.filter = 'brightness(0.75)'
             })
         }
     }
@@ -172,6 +173,12 @@ class Game {
         //change player
         this.currPlayer = this.currPlayer !== this.p1 ? this.p1 : this.p2
         this.hover()
+    }
+
+    removeHandleClick() {
+        let topRowCells = Array.from(document.querySelectorAll('#board tr:first-child td'))
+
+        topRowCells.forEach(cell=>cell.removeEventListener('click', this.handleClick))
     }
 
     findEmptySpot(col) {
@@ -274,8 +281,11 @@ class Game {
         }
 
         if(winner) {
+            this.removeHandleClick()
+
             let winningGamePiece = document.getElementById(`${ROW}, ${COL}`).firstChild
             winningGamePiece.addEventListener('animationend', ()=> this.gameOverMsg(`Player ${winner} won!`))
+            return
         }
 
         let isGameTied = this.board.every(row=>row.every(cell=>cell))
