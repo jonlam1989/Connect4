@@ -10,11 +10,11 @@ body {
 /* ---------------------------------------------------------- */
 
 .main-container {
-	width: 100vh;
-	margin: 2em auto 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100vh;
+	margin: 2em auto 0;
 }
 
 /* ---------------------------------------------------------- */
@@ -22,7 +22,6 @@ body {
 .header {
 	margin-bottom: 2em;
 }
-
 .header,
 .middle-container {
 	font-size: 2em;
@@ -31,23 +30,36 @@ body {
 	color: white;
 	text-shadow: 4px 4px 8px black;
 }
-
 .middle-container button {
 	font-family: 'Press Start 2P', cursive;
 	font-size: 0.75em;
 	letter-spacing: 5px;
 	margin-top: 2em;
 	padding: 0.75em 1em;
+	background-color: yellow;
 	border: 3px solid black;
 	border-radius: 30px;
-	box-shadow: 3px 3px 0px black;
-	background-color: yellow;
 	text-shadow: 1px 1px 2px rgb(7, 7, 7);
+	box-shadow: 3px 3px 0px black;
 	transition: 0.2s;
+	cursor: pointer;
 }
 
-.middle-container button:hover {
-	cursor: pointer;
+/* ---------------------------------------------------------- */
+
+.alert-msg {
+	position: fixed;
+	top: 6em;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: 75%;
+	height: 2em;
+	font-size: 0.9em;
+	text-align: center;
+	line-height: 2em;
+	color: white;
+	z-index: 2;
 }
 
 /* ---------------------------------------------------------- */
@@ -57,29 +69,25 @@ body {
 	align-items: center;
 	gap: 8em;
 }
-
 .player-1,
 .player-2 {
 	display: flex;
 	flex-direction: column;
 	text-align: center;
+	background-color: white;
 	border-radius: 10px;
 	box-shadow: 0 0 8px rgb(190, 182, 182);
 	transition: 0.5s;
-	background-color: white;
 }
-
 .player-1:hover,
 .player-2:hover {
 	box-shadow: 0 0 16px rgb(190, 182, 182);
 }
-
 .player-1 p,
 .player-2 p {
 	letter-spacing: 8px;
 	margin-bottom: 0.5em;
 }
-
 .player1-color,
 .player2-color {
 	display: flex;
@@ -87,7 +95,6 @@ body {
 	justify-content: space-evenly;
 	padding: 0.25em 0;
 }
-
 .player-1 input,
 .player-2 input {
 	width: 3em;
@@ -95,10 +102,6 @@ body {
 	border: none;
 	box-shadow: 2px 1px 4px black;
 	transition: 0.2s;
-}
-
-.player-1 input:hover,
-.player-2 input:hover {
 	cursor: pointer;
 }
 
@@ -107,31 +110,30 @@ body {
 .game-container {
 	margin-bottom: 2em;
 }
-
 #board {
 	box-shadow: 0 0 8px white;
 }
-
 #board tr:first-child td {
 	width: 50px;
 	height: 50px;
 	border: 2px dashed white;
 }
-
 #board tr td {
 	width: 50px;
 	height: 50px;
 	border: 2px solid white;
 	position: relative;
 }
-
 .gamePiece {
-	margin-left: 2.5px;
-	width: 45px;
-	height: 45px;
-	border-radius: 50%;
 	position: absolute;
 	bottom: 3px;
+	left: 0;
+	right: 0;
+	width: 90%;
+	height: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 50%;
 }
 
 /* ---------------------------------------------------------- */
@@ -142,18 +144,16 @@ body {
 	text-align: center;
 	margin-top: 4em;
 	padding: 4em;
-	border-radius: 10px;
 	background-color: rgb(43, 40, 40);
+	border-radius: 10px;
 	box-shadow: 0 0 24px rgb(0, 0, 0);
 }
-
 .gameOver-container h1 {
 	color: white;
-	text-shadow: 4px 4px 2px rgb(10, 10, 10);
-	margin-bottom: 2em;
 	letter-spacing: 5px;
+	margin-bottom: 2em;
+	text-shadow: 4px 4px 2px rgb(10, 10, 10);
 }
-
 .gameOver-container a {
 	color: white;
 	padding: 1em;
@@ -163,10 +163,9 @@ body {
 	text-shadow: 0 0 5px rgb(7, 7, 7);
 	box-shadow: 0 0 10px rgb(219, 219, 219);
 }
-
 .gameOver-container a:hover {
-	background-color: white;
 	color: rgb(43, 40, 40);
+	background-color: white;
 	text-shadow: 1px 1px 1px black;
 	box-shadow: 0 0 12px rgb(240, 198, 11);
 }
@@ -182,7 +181,6 @@ body {
 		height: 300px;
 	}
 }
-
 @media (max-width: 975px) {
 	.middle-container button {
 		font-size: 0.5em;
@@ -196,7 +194,6 @@ body {
 		height: 2.5em;
 	}
 }
-
 @media (max-width: 850px) {
 	.main-container {
 		width: 100%;
@@ -205,21 +202,51 @@ body {
 	.middle-container p {
 		margin-top: 0;
 	}
-	.middle-container button {
-		font-size: 0.75em;
-	}
 	.players-container {
 		flex-direction: column;
 		gap: 4em;
-	}
-	.img {
-		width: 350px;
-		height: 350px;
 	}
 	.gameOver-container {
 		padding: 3em;
 	}
 	.gameOver-container h1 {
 		font-size: 1.5em;
+	}
+}
+@media (max-width: 450px) {
+	.header {
+		font-size: 1.5em;
+	}
+	.msg-container {
+		position: fixed;
+		width: 90%;
+		height: 5em;
+		background-color: rgb(46, 44, 44);
+		box-shadow: 0 0 20px black;
+		opacity: 0;
+		z-index: 1;
+	}
+	.alert-msg {
+		top: 2em;
+	}
+	#board tr:first-child td {
+		width: 30px;
+		height: 30px;
+	}
+	#board tr td {
+		width: 30px;
+		height: 30px;
+	}
+	.gamePiece {
+		bottom: 2px;
+	}
+	.gameOver-container {
+		padding: 3em 2.5em;
+	}
+	.gameOver-container h1 {
+		font-size: 1em;
+	}
+	.gameOver-container a {
+		padding: 0.75em;
 	}
 }
